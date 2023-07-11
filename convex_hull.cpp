@@ -28,6 +28,8 @@ long long dot(const Point &A, const Point &B) {
     return 1LL * A.x * B.x + 1LL * A.y * B.y;
 }
 
+
+
 // Góc giữa vector A và vector B
 double calcAngle(const Point &A, const Point &B) {
     return acos(dot(A, B) / A.length() / B.length());
