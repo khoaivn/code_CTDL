@@ -1,86 +1,96 @@
-#include <algorithm>
+// C++ implementation of the approach
 #include <vector>
 #include <iostream>
+#define llu long long int
 using namespace std;
 
-typedef double coord_t;         // coordinate type
-typedef double coord2_t;  // must be big enough to hold 2*max(|coordinate|)^2
-
 struct Point {
-	coord_t x, y;
 
-	bool operator <(const Point &p) const {
+	llu x, y;
+
+	bool operator<(Point p)
+	{
 		return x < p.x || (x == p.x && y < p.y);
 	}
 };
 
-// 3D cross product of OA and OB vectors, (i.e z-component of their "2D" cross product, but remember that it is not defined in "2D").
-// Returns a positive value, if OAB makes a counter-clockwise turn,
-// negative for clockwise turn, and zero if the points are collinear.
-coord2_t cross(const Point &O, const Point &A, const Point &B)
+// Cross product of two vectors OA and OB
+// returns positive for counter clockwise
+// turn and negative for clockwise turn
+llu cross_product(Point O, Point A, Point B)
 {
-	return (A.x - O.x) * (B.y - O.y) - (A.y - O.y) * (B.x - O.x);
+	return (A.x - O.x) * (B.y - O.y)
+		- (A.y - O.y) * (B.x - O.x);
 }
 
-// Returns a list of points on the convex hull in counter-clockwise order.
-// Note: the last point in the returned list is the same as the first one.
-vector<Point> convex_hull(vector<Point> P)
+// Returns a list of points on the convex hull
+// in counter-clockwise order
+vector<Point> convex_hull(vector<Point> A)
 {
-	size_t n = P.size(), k = 0;
-	if (n <= 3) return P;
-	vector<Point> H(2*n);
+	int n = A.size(), k = 0;
+
+	if (n <= 3)
+		return A;
+
+	vector<Point> ans(2 * n);
 
 	// Sort points lexicographically
-	sort(P.begin(), P.end());
+	sort(A.begin(), A.end());
 
 	// Build lower hull
-	for (size_t i = 0; i < n; ++i) {
-		while (k >= 2 && cross(H[k-2], H[k-1], P[i]) <= 0) k--;
-		H[k++] = P[i];
+	for (int i = 0; i < n; ++i) {
+
+		// If the point at K-1 position is not a part
+		// of hull as vector from ans[k-2] to ans[k-1]
+		// and ans[k-2] to A[i] has a clockwise turn
+		while (
+			k >= 2
+			&& cross_product(ans[k - 2], ans[k - 1], A[i])
+				<= 0)
+			k--;
+		ans[k++] = A[i];
 	}
 
 	// Build upper hull
-	for (size_t i = n-1, t = k+1; i > 0; --i) {
-		while (k >= t && cross(H[k-2], H[k-1], P[i-1]) <= 0) k--;
-		H[k++] = P[i-1];
+	for (size_t i = n - 1, t = k + 1; i > 0; --i) {
+
+		// If the point at K-1 position is not a part
+		// of hull as vector from ans[k-2] to ans[k-1]
+		// and ans[k-2] to A[i] has a clockwise turn
+		while (k >= t
+			&& cross_product(ans[k - 2], ans[k - 1],
+								A[i - 1])
+					<= 0)
+			k--;
+		ans[k++] = A[i - 1];
 	}
 
-	H.resize(k-1);
-	return H;
+	// Resize the array to desired size
+	ans.resize(k - 1);
+
+	return ans;
 }
-int main(){
-    Point a1 = {3, 5};
-    Point a2 = {-2, 8};
-    Point a3 = {0, -3};
-    Point a4 = {7, 2};
-    Point a5 = {3, -6};
-    Point a6 = {1, 9};
-    Point a7 = {-3, 0};
-    Point a8 = {6, -4};
-    Point a9 = {-1, 7};
-    Point a10 = {4, 1};
-    vector<Point> list;
-    list.push_back(a1);
-    list.push_back(a2);
-    list.push_back(a3);
-    list.push_back(a4);
-    list.push_back(a5);
-    list.push_back(a6);
-    list.push_back(a7);
-    list.push_back(a8);
-    list.push_back(a9);
-    list.push_back(a10);
 
-    // sort(list.begin(), list.end());
-    // for (auto i = list.begin(); i != list.end(); ++i){
-    //     Point po = *i;
-    //     cout << po.x << " " << po.y << endl;
-    // }
-    vector<Point> result = convex_hull(list);
-    for (auto i = result.begin(); i != result.end(); ++i){
-        Point po = *i;
-        cout << po.x << " " << po.y << endl;
-    }
+// Driver code
+int main()
+{
+	vector<Point> points;
 
-    return 0;
+	// Add points
+	points.push_back({ 0, 3 });
+	points.push_back({ 2, 2 });
+	points.push_back({ 1, 1 });
+	points.push_back({ 2, 1 });
+	points.push_back({ 3, 0 });
+	points.push_back({ 0, 0 });
+	points.push_back({ 3, 3 });
+
+	// Find the convex hull
+	vector<Point> ans = convex_hull(points);
+
+	// Print the convex hull
+	for (int i = 0; i < ans.size(); i++)
+		cout << "(" << ans[i].x << ", " << ans[i].y << ")" << endl;
+
+	return 0;
 }
