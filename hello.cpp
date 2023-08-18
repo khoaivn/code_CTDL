@@ -2,24 +2,18 @@
 
 using namespace std;
 
+struct P{
+    int x, t, y1, y2;
+};
+vector<P> point;
+
 int main() {
     vector<int> A;
-    // A[10] = 9;
-    A.push_back(3);
-    A.push_back(1);
-    A.push_back(8);
-    A.push_back(8);
-    A.push_back(8);
-    A.push_back(8);
-    A.push_back(8);
 
-    int v = A.back();
-    // printf("%d", A.);
-    // printf("%lu", A.size());
+    struct P aaa = {1,2,3,4};
 
-    for (int i = 0; i < A.size(); i++){
-        printf("%d ", A[i]);
-    }
+    point.push_back(aaa);
+    
     return 0;
 }
     
