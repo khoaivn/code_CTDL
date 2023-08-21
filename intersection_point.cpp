@@ -12,10 +12,11 @@ bool cmp(P a, P b){
     return ((a.x < b.x) || (a.x == b.x && a.t < b.t));
 }
 int n, res, BIT[100005];
+
 void upd(int pos, int val){
     while (pos < n){
         BIT[pos] += val;
-        pos = pos + (pos & -pos);
+        pos = pos + (pos & -pos); 
     }
 }
 int get(int pos){
@@ -28,8 +29,8 @@ int get(int pos){
 }
 int32_t main(){ 
     ios_base::sync_with_stdio(0);
-    freopen("vnoi_safenet2.inp", "r", stdin);
-    freopen("vnoi_safenet2.out", "w", stdout);
+    freopen("intersection_point.inp", "r", stdin);
+    freopen("intersection_point.out", "w", stdout);
     cin >> n;
     for (int i = 1; i <= n; i++){
         int x1, x2, y1, y2;

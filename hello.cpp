@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <iostream>
 
 using namespace std;
 
@@ -13,7 +14,10 @@ int main() {
     struct P aaa = {1,2,3,4};
 
     point.push_back(aaa);
-    
+
+    int pos = 4;
+    pos = pos + (pos & -pos); 
+    cout << pos;
     return 0;
 }
     
