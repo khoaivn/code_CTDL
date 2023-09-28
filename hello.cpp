@@ -18,6 +18,7 @@ int main() {
     int pos = 4;
     pos = pos + (pos & -pos); 
     cout << pos;
+    cout << "aaaaaaaaaaaaaaaa";
     return 0;
 }
     
