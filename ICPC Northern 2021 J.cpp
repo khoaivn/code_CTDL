@@ -52,6 +52,8 @@ void sol() {
         return false;
     };
 
+    
+
     long long L = 1, R = 1e18, ans = R;
     while (L <= R) {
         long long mid = (L + R) >> 1;
