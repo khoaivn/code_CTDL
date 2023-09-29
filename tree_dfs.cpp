@@ -15,7 +15,6 @@ int tail[maxN];
 vector <int> g[maxN];
 
 void dfs(int u, int parent){
-    
     low[u] = ++::count;
     num[u] = low[u];
     for (int v : g[u]){
@@ -36,13 +35,30 @@ int main(){
     freopen("tree_dfs.out", "w", stdout);
     
     scanf("%d%d", &n, &m);
-    printf("%d\n", n);
-    printf("%d\n", m);
+    // printf("%d\n", n);
+    // printf("%d\n", m);
     while (m--){
         int x, y;
         scanf("%d%d", &x, &y);
         g[x].push_back(y);
         g[y].push_back(x);
     }
+    dfs(1, 0);
+    for (int i = 1; i <= n; i++){
+        printf("%d  ", i);
+    }
+    printf("\n");
+    for (int i = 1; i <= n; i++){
+        printf("%d  ", low[i]);
+    }
+    printf("\n");
+    for (int i = 1; i <= n; i++){
+        printf("%d  ", num[i]);
+    }
+    printf("\n");
+    for (int i = 1; i <= n; i++){
+        printf("%d  ", tail[i]);
+    }
+    printf("\n");
     return 0;
 }
