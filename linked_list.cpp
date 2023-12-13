@@ -3,13 +3,17 @@
 
 using namespace std;
 
-struct node {
-    int data;
-    node *next;
-};
+
 
 class MyLinkedList{
 public:
+
+    class node {
+    public:
+        int data;
+        node *next;
+    };
+
     node* head;
     MyLinkedList(){
         head = NULL;
