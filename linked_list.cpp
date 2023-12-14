@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-// #include "iostream"
 
 using namespace std;
 
@@ -12,6 +11,9 @@ public:
     public:
         int data;
         node *next;
+
+        node(int val): data(val){
+        }
     };
 
     node* head;
@@ -24,17 +26,17 @@ public:
     // }
     
     void addAtHead(int val) {
-        node moi;
-        moi.data = val;
-        moi.next = head;
-        head = &moi;
+        node* moi = new node(val);
+        moi->next = head;
+        head = moi;
+        
     }
     void print_all(){
-        node* a;
-        a = head;
-        while (a != NULL){
-            cout << a->data << endl;
-            a = a->next;
+        node* cur;
+        cur = head;
+        while (cur != NULL){
+            cout << cur->data << endl;
+            cur = cur->next;
         }
     }
     
@@ -56,15 +58,11 @@ public:
 
 int main(){
 
-    // node aa;
-    // aa.data = 4;
-    // node* head;
-    // head = &aa;
-    // cout << head->data;
-
     MyLinkedList list;
     list.addAtHead(4);
     list.addAtHead(3);
+    list.addAtHead(9);
+
     list.print_all();
     return 0;
 }
