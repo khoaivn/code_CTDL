@@ -12,7 +12,7 @@ public:
         int data;
         node *next;
 
-        node(int val): data(val){
+        node(int val): data(val), next(NULL){
         }
     };
 
@@ -21,9 +21,16 @@ public:
         head = NULL;
     }
 
-    // int get(int index) {
-        
-    // }
+    int get(int index) {
+        node* cur;
+        cur = head;
+        for (int i = 0; i < index && cur != NULL; i++)
+            cur = cur->next;
+        if (cur != NULL)
+            return cur->data;   
+        else
+            return -1;
+    }
     
     void addAtHead(int val) {
         node* moi = new node(val);
@@ -40,17 +47,49 @@ public:
         }
     }
     
-    // void addAtTail(int val) {
-        
-    // }
+    void addAtTail(int val) {
+        node* moi = new node(val);
+        if (head == NULL)
+            head = moi;
+        else {
+            node* last;
+            last = head;
+            while (last->next != NULL){
+                last = last->next;
+            }
+            last->next = moi;
+        }
+    }
     
-    // void addAtIndex(int index, int val) {
-        
-    // }
+    void addAtIndex(int index, int val) {
+        node* moi = new node(val);
+        if (index == 0){
+            addAtHead(val);
+        } else {
+            node* cur;
+            cur = head;
+            for (int i = 0; i < index - 1 && cur != NULL; i++)
+                cur = cur->next;
+            if (cur != NULL){
+                moi->next = cur->next;
+                cur->next = moi;
+            }
+        }
+    }
     
-    // void deleteAtIndex(int index) {
-        
-    // }
+    void deleteAtIndex(int index) {
+        if (index == 0)
+            head = head->next;
+        else {
+            node* cur;
+            cur = head;
+            for (int i = 0; i < index - 1 && cur !=NULL; i++)
+                cur = cur->next;
+            if (cur != NULL && cur->next != NULL){
+                cur->next = cur->next->next;
+            }
+        }
+    }
 };
 
 
@@ -59,10 +98,12 @@ public:
 int main(){
 
     MyLinkedList list;
-    list.addAtHead(4);
-    list.addAtHead(3);
-    list.addAtHead(9);
+    list.addAtIndex(0,10);
+    list.addAtIndex(0,20);
+    list.addAtIndex(1,30);
+    
 
     list.print_all();
+    
     return 0;
 }
