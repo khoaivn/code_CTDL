@@ -2,8 +2,6 @@
 
 using namespace std;
 
-
-
 class MyLinkedList{
 public:
 
@@ -12,13 +10,21 @@ public:
         int data;
         node *next;
 
-        node(int val): data(val), next(NULL){
-        }
+        node(int val): data(val), next(NULL){}
     };
 
     node* head;
     MyLinkedList(){
         head = NULL;
+    }
+    int pullAtHead(){
+        if (head == NULL)
+            return -1;
+        else {
+            int val = head->data;
+            head = head->next;
+            return val;
+        }
     }
 
     int get(int index) {
@@ -42,9 +48,10 @@ public:
         node* cur;
         cur = head;
         while (cur != NULL){
-            cout << cur->data << endl;
+            cout << cur->data << "  ";
             cur = cur->next;
         }
+        cout << endl;
     }
     
     void addAtTail(int val) {
@@ -101,7 +108,10 @@ int main(){
     list.addAtIndex(0,10);
     list.addAtIndex(0,20);
     list.addAtIndex(1,30);
-    
+
+    list.print_all();
+
+    cout << list.pullAtHead() << endl;
 
     list.print_all();
     
