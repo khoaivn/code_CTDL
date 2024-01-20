@@ -44,7 +44,6 @@ public:
             root->left = deleteNode(root->left, key);
             return root;
         } else {
-            cout << root->val << "  ";
             if (root->left == NULL){
                 return root->right;
             } else if (root->right == NULL){
@@ -63,16 +62,20 @@ public:
 };
 int main(){
     BinaryTreeSearch bts;
+    bts.root = bts.insertNode(bts.root, 34);
+    bts.root = bts.insertNode(bts.root, 17);
+    bts.root = bts.insertNode(bts.root, 66);
+    bts.root = bts.insertNode(bts.root, 25);
     bts.root = bts.insertNode(bts.root, 50);
-    bts.root = bts.insertNode(bts.root, 30);
-    bts.root = bts.insertNode(bts.root, 40);
+    bts.root = bts.insertNode(bts.root, 71);
+    bts.root = bts.insertNode(bts.root, 56);
+    bts.root = bts.insertNode(bts.root, 68);
+    bts.root = bts.insertNode(bts.root, 94);
     bts.root = bts.insertNode(bts.root, 70);
-    bts.root = bts.insertNode(bts.root, 60);
-    bts.root = bts.insertNode(bts.root, 80);
     
     bts.duyet_tien_thu_tu(bts.root);
     cout << endl;
-    bts.deleteNode(bts.root, 50);
+    bts.deleteNode(bts.root, 66);
     cout << endl;
     bts.duyet_tien_thu_tu(bts.root);
     return 0;
