@@ -31,16 +31,15 @@ void addAtTall(Node **head, int val) {
     }
 }
 void addAtAnywhere(Node *head, int data_flag, int val){
-    Node* newNode = createNode(val);
-    Node* tmp = head;
+    Node *newNode = createNode(val);
+    Node *tmp = head;
     while (tmp->next != NULL && tmp->data != data_flag)
         tmp = tmp->next;
-    if (tmp->next == NULL)
-        tmp->next = newNode;
-    else {
+    if (tmp->data == data_flag){
         newNode->next = tmp->next;
         tmp->next = newNode;
-    }
+    } else 
+        printf("Khong thay\n");
 }
 void printList(Node* head) {
     Node *temp = head;
@@ -52,12 +51,15 @@ void printList(Node* head) {
 }
 
 
-
-
 int main(){
     Node *head = NULL;
+    addAtTall(&head, 4);
+    addAtTall(&head, 5);
     addAtTall(&head, 8);
     addAtTall(&head, 9);
+    addAtAnywhere(head, 8, 3);
+    addAtAnywhere(head, 9, 12);
+    addAtAnywhere(head, 6, 15);
     printList(head);
     return 0;
 }
