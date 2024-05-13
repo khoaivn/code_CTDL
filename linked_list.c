@@ -18,24 +18,32 @@ void addAtHead(Node **head, int val){
     newNode->next = *head;
     *head = newNode;
 }
-void addAtTall(Node **head, int val){
+void addAtTall(Node **head, int val) {
     Node *newNode = createNode(val);
-    if (*head == NULL){
+    if (*head == NULL)
         *head = newNode;
-    } else {
-        Node *lastNode = *head;
-        while (lastNode->next != NULL)
-            lastNode = lastNode->next;
-        lastNode->next = newNode;
+    else {
+        Node *tmp = *head;
+        while (tmp->next != NULL) {
+            tmp = tmp->next;
+        }
+        tmp->next = newNode;
     }
 }
-void insertAfter(Node* prevNode, int data) {
-    Node* newNode = createNode(data);
-    newNode->next = prevNode->next;
-    prevNode->next = newNode;
+void addAtAnywhere(Node *head, int data_flag, int val){
+    Node* newNode = createNode(val);
+    Node* tmp = head;
+    while (tmp->next != NULL && tmp->data != data_flag)
+        tmp = tmp->next;
+    if (tmp->next == NULL)
+        tmp->next = newNode;
+    else {
+        newNode->next = tmp->next;
+        tmp->next = newNode;
+    }
 }
 void printList(Node* head) {
-    Node* temp = head;
+    Node *temp = head;
     while (temp != NULL) {
         printf("%d -> ", temp->data);
         temp = temp->next;
@@ -48,11 +56,8 @@ void printList(Node* head) {
 
 int main(){
     Node *head = NULL;
-    addAtHead(&head, 1);
-    addAtHead(&head, 2);
-    addAtHead(&head, 3);
     addAtTall(&head, 8);
+    addAtTall(&head, 9);
     printList(head);
-    printf("aaaa");
     return 0;
 }

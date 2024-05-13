@@ -2,10 +2,10 @@
 
 using namespace std;
 
-class MyLinkedList{
-public:
+struct MyLinkedList{
+// public:
 
-    class node {
+    struct node {
     public:
         int data;
         node *next;
@@ -99,21 +99,21 @@ public:
     }
 };
 
+typedef struct _listnode {
+		int num;
+		struct _listnode *next;
+} ListNode;
+typedef struct _linkedlist {
+		ListNode *head;
+		int size;
+} LinkedList;
 
+typedef struct _queue { 
+    	LinkedList ll;
+} Queue;
 
 
 int main(){
 
-    MyLinkedList list;
-    list.addAtIndex(0,10);
-    list.addAtIndex(0,20);
-    list.addAtIndex(1,30);
-
-    list.print_all();
-
-    cout << list.pullAtHead() << endl;
-
-    list.print_all();
     
-    return 0;
 }

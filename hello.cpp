@@ -111,7 +111,6 @@ void merge(vector<int>& nums, int start, int mid, int end) {
     }
     for (int i = start; i <= end; i++)
         nums[i] = result[i - start];
-  
 }
 void mergeSort(vector<int>& nums, int start, int end) {
     if(start < end) {
@@ -122,17 +121,79 @@ void mergeSort(vector<int>& nums, int start, int end) {
     }
 }
 
+void makeHeap(vector<int>& nums, int max_index){
+    int par_index = (max_index - 1) / 2;
+    for (int i = par_index; i >= 0; i--){
+        int tmp = i * 2 + 1;
+        if (i * 2 + 2 <= max_index && nums[tmp] < nums[i * 2 + 2])
+            tmp = i * 2 + 2;
+        if (nums[tmp] > nums[i])
+            swap(nums[tmp], nums[i]);
+    }
+}
+void pushDown(vector<int>& nums, int root, int max_index){
+    int i = root;
+    while (2 * i + 1 <= max_index){
+        int tmp = 2 * i + 1;
+        if (2 * i + 2 <= max_index && nums[tmp] < nums[2 * i + 2])
+            tmp += 1;
+        if (nums[tmp] < nums[i]) i = max_index;
+        else {
+            swap(nums[tmp], nums[i]);
+            i = tmp;
+        }
+    }
+}
+void HeapSort(vector<int>& nums){
+    int n = nums.size();
+    int par = (n - 2) / 2;
+    for (int i = par; i >= 0; i--)
+        pushDown(nums, i, n - 1);
+    for (int i = n - 1; i > 0; i--){
+        swap(nums[0], nums[i]);
+        pushDown(nums, 0, i - 1);
+    }
+}
+int partition(vector<int> &a, int l, int r) {
+    int m = (l + r) / 2;
+    int p = a[m];
+    cout << "p = " << a[m] << endl;
+    int i = l - 1;
+    int j = r + 1;
+    while (i < j) {
+        do{
+            i++;
+        }while(a[i] < p);
+        
+        do{
+            j--;
+        }while(a[j] > p);
 
+        if (i < j) {
+            swap(a[i], a[j]);
+        }
+    }
+    return j;
+}
+
+void QuickSort(vector<int> &a, int l, int r) {
+    if (l >= r) return;
+    int m = partition(a, l, r);
+    cout << l << "  " << r << "  " << m << endl; 
+
+    QuickSort(a, l, m);
+    QuickSort(a, m + 1, r);
+}
 int main() {
-    int Arr[] = {2, 7, 5, 2, 6, 7, 9, 0, 8, 5, 0, 0, 11, 0, 0, 4};
-    // int Arr[] = {10, 9, 1, 3, 5, 6, 2, 8, 20, 20};
+    // int Arr[] = {2, 7, 5, 2, 6, 7, 9, 0, 8, 5, 0, 0, 11, 0, 0, 4};
+    int Arr[] = {10, 9, 1, 3, 6, 5, 6, 8, 6, 20};
     vector<int> mot (Arr, Arr + sizeof(Arr) / sizeof(Arr[0]) );
     // int Brr[] = {1, 2, 90, 111};
     // vector<int> hai (Brr, Brr + sizeof(Brr) / sizeof(Brr[0]) );
 
-    mergeSort(mot, 0, 15);
-    for (int i = 0; i < mot.size(); i++)
-        cout << mot[i] << "  ";
+    QuickSort(mot, 0, 9);
+    for (int i = 0; i < 10; i++)
+        cout << i << "  " << mot[i] << endl;
 
     
 
