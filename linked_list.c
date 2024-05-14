@@ -18,7 +18,7 @@ void addAtHead(Node **head, int val){
     newNode->next = *head;
     *head = newNode;
 }
-void addAtTall(Node **head, int val) {
+void addAtTail(Node **head, int val) {
     Node *newNode = createNode(val);
     if (*head == NULL)
         *head = newNode;
@@ -42,37 +42,50 @@ void addAtAnywhere(Node *head, int data_flag, int val){
         printf("Khong thay\n");
 }
 void deleteAtHead(Node **head){
-    if (*head != NULL)
+    if(*head != NULL)
         *head = (*head)->next;
-    else 
-        printf("Danh sach trong\n");
+    else
+        printf("DS rong nen khong xoa duoc\n");
 }
-
-void deleteAtTall(Node **head){
-    Node *tmp = *head;
-    while (tmp != NULL && tmp->next != NULL && tmp->next->next != NULL)
-        tmp = tmp->next;
-    if (tmp == NULL)
-        printf("Danh sach rong\n");
-    else if (tmp->next == NULL)
-        *head = NULL;
-    else 
-        tmp->next = NULL;
-}
-void deleteAtAnywhere(Node **head, int data_flag){
-    Node *tmp = *head;
+void deleteAtTail(Node **head){
     if (*head == NULL)
-        printf("Danh sach rong\n");
-    else if ((*head)->data == data_flag)
+        printf("DS rong nen khong xoa duoc\n");
+    else if ((*head)->next == NULL)
+        *head = NULL;
+    else {
+        Node *tmp = *head;
+        while (tmp->next->next != NULL)
+            tmp = tmp->next;
+        tmp->next = NULL;
+    }
+}
+void deleteAtIndex(Node **head, int index){
+    if (*head == NULL)
+        printf("DS rong nen khong xoa duoc\n");
+    else if (index == 1)
         *head = (*head)->next;
     else {
-        while (tmp->next != NULL && tmp->next->data != data_flag)
+        Node *tmp = *head;
+        int count = 1;
+        while (tmp->next != NULL && count != index - 1){
             tmp = tmp->next;
+            count++;
+        }
         if (tmp->next != NULL)
             tmp->next = tmp->next->next;
-        else
-            printf("Khong tim thay\n");
+        else 
+            printf("index khong ton tai\n");
     }
+}
+int find(Node *head, int val){
+    Node *tmp = head;
+    int index = 1;
+    while (tmp != NULL && tmp->data != val){
+        tmp = tmp->next;
+        index++;
+    }
+    if (tmp == NULL) return -1;
+    else return index;
 }
 void printList(Node* head) {
     Node *temp = head;
@@ -86,13 +99,14 @@ void printList(Node* head) {
 
 int main(){
     Node *head = NULL;
-    addAtTall(&head, 4);
-    addAtTall(&head, 5);
-    addAtTall(&head, 8);
-    addAtTall(&head, 9);
+    addAtTail(&head, 4);
+    addAtTail(&head, 5);
+    addAtTail(&head, 8);
+    addAtTail(&head, 9);
     addAtAnywhere(head, 8, 3);
     addAtAnywhere(head, 9, 12);
-    deleteAtAnywhere(&head, 12);
+    
     printList(head);
+    printf("%d", find(head, 12));
     return 0;
 }
