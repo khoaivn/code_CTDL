@@ -41,6 +41,39 @@ void addAtAnywhere(Node *head, int data_flag, int val){
     } else 
         printf("Khong thay\n");
 }
+void deleteAtHead(Node **head){
+    if (*head != NULL)
+        *head = (*head)->next;
+    else 
+        printf("Danh sach trong\n");
+}
+
+void deleteAtTall(Node **head){
+    Node *tmp = *head;
+    while (tmp != NULL && tmp->next != NULL && tmp->next->next != NULL)
+        tmp = tmp->next;
+    if (tmp == NULL)
+        printf("Danh sach rong\n");
+    else if (tmp->next == NULL)
+        *head = NULL;
+    else 
+        tmp->next = NULL;
+}
+void deleteAtAnywhere(Node **head, int data_flag){
+    Node *tmp = *head;
+    if (*head == NULL)
+        printf("Danh sach rong\n");
+    else if ((*head)->data == data_flag)
+        *head = (*head)->next;
+    else {
+        while (tmp->next != NULL && tmp->next->data != data_flag)
+            tmp = tmp->next;
+        if (tmp->next != NULL)
+            tmp->next = tmp->next->next;
+        else
+            printf("Khong tim thay\n");
+    }
+}
 void printList(Node* head) {
     Node *temp = head;
     while (temp != NULL) {
@@ -59,7 +92,7 @@ int main(){
     addAtTall(&head, 9);
     addAtAnywhere(head, 8, 3);
     addAtAnywhere(head, 9, 12);
-    addAtAnywhere(head, 6, 15);
+    deleteAtAnywhere(&head, 12);
     printList(head);
     return 0;
 }
