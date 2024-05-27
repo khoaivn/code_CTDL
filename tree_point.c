@@ -44,7 +44,19 @@ void insertNodeBST(Node **nowNode, Node *newNode){
         insertNodeBST(&(*nowNode)->left, newNode);
 
 }
-void deleteNode(Node **nodeD){
+Node* insertNodeBST2(Node *nowNode, Node *newNode){
+    if (nowNode == NULL)
+        return newNode;
+    else if (nowNode->data < newNode->data){
+        nowNode->right = insertNodeBST2(nowNode->right, newNode);
+        return nowNode;
+    } else {
+        nowNode->left = insertNodeBST2(nowNode->left, newNode);
+        return nowNode;
+    }
+
+}
+void deleteNode(Node **nodeD){// khong xoa o vong lap thu hai
     if ((*nodeD)->left == NULL){
         *nodeD = (*nodeD)->right;
     } else if ((*nodeD)->right == NULL){
@@ -57,6 +69,16 @@ void deleteNode(Node **nodeD){
         deleteNode(&tmp);
     }
 }
+Node* findNode(Node *root, int key){
+    if (root == NULL)
+        return NULL;
+    else if (root->data < key)
+        return findNode(root->right, key);
+    else if (root->data > key)
+        return findNode(root->left, key);
+    else
+        return root;
+}
 Node* deleteNodeTree(Node* root, int key) {
     if (root == NULL)
         return root;
@@ -67,38 +89,21 @@ Node* deleteNodeTree(Node* root, int key) {
         root->left = deleteNodeTree(root->left, key);
         return root;
     } else {
-        if (root->left == NULL){
+        if (root->left == NULL)
             return root->right;
-        } else if (root->right == NULL){
+        else if (root->right == NULL)
             return root->left;
-        } else {
-            Node* temp = root->right;
-            while (temp->left != NULL){
+        else {
+            Node *temp = root->right;
+            while (temp->left != NULL)
                 temp = temp->left;
-            }
             root->data = temp->data;
             root->right = deleteNodeTree(root->right, temp->data);
             return root;
         }
     }
 }
-Node* deleteNodeTree2(Node* root) {
 
-    if (root->left == NULL){
-        return root->right;
-    } else if (root->right == NULL){
-        return root->left;
-    } else {
-        Node* temp = root->right;
-        while (temp->left != NULL){
-            temp = temp->left;
-        }
-        root->data = temp->data;
-        root->right = deleteNodeTree(root->right, temp->data);
-        return root;
-    }
-    
-}
 void nullNode(Node **aaa){
     (*aaa) = NULL;
 }
@@ -119,10 +124,18 @@ int main(){
     insertNodeBST(&rootBST, createNode(56));
     insertNodeBST(&rootBST, createNode(68));
     insertNodeBST(&rootBST, createNode(94));
-    // // 34 17 25 66 50 45 56 71 68 94
-    deleteNodeTree2(rootBST->right->right);
+    insertNodeBST(&rootBST, createNode(70));
+    // // 34 17 25 66 50 45 56 71 68 94 70
+
+    // deleteNodeTree(rootBST, 45);
+    // deleteNodeTree(rootBST, 17);
+    // deleteNodeTree(rootBST, 66);
+
+    deleteNodeTree2(rootBST->right);
+    
 
     duyet_tien_thu_tu(rootBST);
+
     
     return 1;
 }
