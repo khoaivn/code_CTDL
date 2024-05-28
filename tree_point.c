@@ -127,11 +127,11 @@ int main(){
     insertNodeBST(&rootBST, createNode(70));
     // // 34 17 25 66 50 45 56 71 68 94 70
 
-    // deleteNodeTree(rootBST, 45);
-    // deleteNodeTree(rootBST, 17);
-    // deleteNodeTree(rootBST, 66);
+    deleteNodeTree(rootBST, 45);
+    deleteNodeTree(rootBST, 17);
+    deleteNodeTree(rootBST, 66);
 
-    deleteNodeTree2(rootBST->right);
+    
     
 
     duyet_tien_thu_tu(rootBST);
