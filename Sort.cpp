@@ -1,10 +1,12 @@
-#include <stdio.h>
+#include <bits/stdc++.h>
 
-void swap(int &a, int &b){
-    int tmp = a;
-    a = b;
-    b = tmp;
-}
+using namespace std;
+
+// void swap(int &a, int &b){
+//     int tmp = a;
+//     a = b;
+//     b = tmp;
+// }
 void seletionSort(int Arr[], int n){
     for (int i = 0; i < n - 1; i++){
         int min_index = i;
@@ -39,7 +41,7 @@ void countingSort(int Arr[], int n, int k){
     for (int i = 0; i < n; i++)
         Arr[i] = O[i];
 }
-int partition(int Arr[], int low, int high){
+int lomutoPartition(int Arr[], int low, int high){
     int pivot = Arr[high];
     int i = (low - 1);
     for (int j = low; j < high; j++){
@@ -51,22 +53,61 @@ int partition(int Arr[], int low, int high){
     swap(Arr[i + 1], Arr[high]);
     return i + 1;
 }
+int hoarePartition(int Arr[], int low, int high){
+    int pivot = Arr[low];
+    int i = low - 1;
+    int j = high + 1;
+    while (true){
+        do {
+            i++;
+        } while (Arr[i] < pivot);
+        do {
+            j--;
+        } while (Arr[j] > pivot);
+        if (i >= j)
+            return j;
+        swap(Arr[i], Arr[j]);
+    }
+}
 void quickSort(int Arr[], int low, int high){
     if (low < high){
-        int pi = partition(Arr, low, high);
+        int pi = lomutoPartition(Arr, low, high);
         quickSort(Arr, low, pi - 1);
         quickSort(Arr, pi + 1, high);
     }
-
+}
+int hoarePartition_vector(vector<int> &nums, int low, int high){
+    int pivot = nums[low];
+    int i = low - 1;
+    int j = high + 1;
+    while (true){
+        do{
+            i++;
+        } while (nums[i] < pivot);
+        do{
+            j--;
+        } while (nums[j] > pivot);
+        if (i >= j)
+            return j;
+        swap(nums[i], nums[j]);
+    }
+}
+void quickSort_vector(vector<int> &nums, int low, int high){
+    if (low < high){
+        int pi = hoarePartition_vector(nums, low, high);
+        quickSort_vector(nums, low, pi);
+        quickSort_vector(nums, pi + 1, high);
+    }
 }
 int main(){
-    int A[] = {10, 7, 8, 9, 1, 5};
-    int n = 6;
+    // int A[] = {10, 7, 8, 9, 1, 5};
+    int A[] = {5, 1, 1, 2, 0, 0};
+    int n = sizeof(A) / sizeof(A[0]); 
+    vector<int> vect(A, A + n); 
     int k = 4;
-    // insertionSort(A, n);
-    // countingSort(A, 14, 4);
-    // swap(A[0], A[1]);
-    quickSort(A, 0, 5);
+    quickSort_vector(vect, 0, 5);
     for (int i = 0; i < n; i++)
-        printf("%d  ", A[i]);
+        printf("%d  ", vect[i]);
+
+    
 }
