@@ -39,13 +39,34 @@ void countingSort(int Arr[], int n, int k){
     for (int i = 0; i < n; i++)
         Arr[i] = O[i];
 }
+int partition(int Arr[], int low, int high){
+    int pivot = Arr[high];
+    int i = (low - 1);
+    for (int j = low; j < high; j++){
+        if (Arr[j] < pivot){
+            i++;
+            swap(Arr[i], Arr[j]);
+        }
+    }
+    swap(Arr[i + 1], Arr[high]);
+    return i + 1;
+}
+void quickSort(int Arr[], int low, int high){
+    if (low < high){
+        int pi = partition(Arr, low, high);
+        quickSort(Arr, low, pi - 1);
+        quickSort(Arr, pi + 1, high);
+    }
+
+}
 int main(){
-    int A[] = { 0, 4, 2, 2, 0, 0, 1, 1, 0, 1, 0, 2, 4, 2};
-    int n = 14;
+    int A[] = {10, 7, 8, 9, 1, 5};
+    int n = 6;
     int k = 4;
     // insertionSort(A, n);
-    countingSort(A, 14, 4);
+    // countingSort(A, 14, 4);
     // swap(A[0], A[1]);
+    quickSort(A, 0, 5);
     for (int i = 0; i < n; i++)
         printf("%d  ", A[i]);
 }
