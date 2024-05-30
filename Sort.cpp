@@ -43,7 +43,7 @@ void countingSort(int Arr[], int n, int k){
 }
 int lomutoPartition(int Arr[], int low, int high){
     int pivot = Arr[high];
-    int i = (low - 1);
+    int i = low - 1;
     for (int j = low; j < high; j++){
         if (Arr[j] < pivot){
             i++;
@@ -87,14 +87,31 @@ int hoarePartition_vector(vector<int> &nums, int low, int high){
         do{
             j--;
         } while (nums[j] > pivot);
+        printf("low= %d high=%d pivot=%d   %d  %d\n", low, high, pivot, i, j);
         if (i >= j)
             return j;
         swap(nums[i], nums[j]);
     }
 }
+int hoarePartition2(vector<int> &nums, int low, int high){
+    int pivot = nums[low];
+    int i = low;
+    int j = high;
+    while (true){
+        while (nums[i] < pivot) i++;
+        while (nums[j] > pivot) j--;
+        printf("low= %d high=%d pivot=%d   %d  %d\n", low, high, pivot, i, j);
+        if (i < j){
+            swap(nums[i], nums[j]);
+            i++;
+            j--;
+        } else
+            return j;
+    }
+}
 void quickSort_vector(vector<int> &nums, int low, int high){
     if (low < high){
-        int pi = hoarePartition_vector(nums, low, high);
+        int pi = hoarePartition2(nums, low, high);
         quickSort_vector(nums, low, pi);
         quickSort_vector(nums, pi + 1, high);
     }
@@ -103,11 +120,10 @@ int main(){
     // int A[] = {10, 7, 8, 9, 1, 5};
     int A[] = {5, 1, 1, 2, 0, 0};
     int n = sizeof(A) / sizeof(A[0]); 
-    vector<int> vect(A, A + n); 
-    int k = 4;
-    quickSort_vector(vect, 0, 5);
+    quickSort(A, 0, n - 1);
     for (int i = 0; i < n; i++)
-        printf("%d  ", vect[i]);
+        printf("%d  ", A[i]);
 
+    
     
 }
