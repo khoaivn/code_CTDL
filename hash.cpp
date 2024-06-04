@@ -8,17 +8,15 @@ int foldingHash(int key, int tableSize) {
         sum += key % 10;
         key = key / 10;
     }
-    
     return sum % tableSize;
 }
-
 int main(){
     int tableSize = 10;
     int hashTable[tableSize];
     for (int i = 0; i < tableSize; i++)
         hashTable[i] = -1;
-    int keys[] = {123, 456, 789, 1011, 1213, 1415, 1617, 1819, 2021, 2223};
-    for (int i = 0; i < 10; i++) {
+    int keys[] = {123, 456, 789, 1011, 1213, 1617};
+    for (int i = 0; i < 6; i++) {
         int hashValue = foldingHash(keys[i], tableSize);
         while (hashTable[hashValue] != -1) {
             hashValue = (hashValue + 1) % tableSize;
@@ -30,3 +28,4 @@ int main(){
     }
     return 0;
 }
+    // int keys[] = {123, 456, 789, 1011, 1213, 1415, 1617, 1819, 2021, 2223};

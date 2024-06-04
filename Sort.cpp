@@ -145,11 +145,58 @@ void meger(int Arr[], int left, int mid, int right){
         Arr[i] = C[i];
 
 }
+void megerSort(int Arr[], int left, int right){
+    if (left < right){
+        int mid = (left + right) / 2;
+        megerSort(Arr, left, mid);
+        megerSort(Arr, mid + 1, right);
+        meger(Arr, left, mid, right);
+    }
+}
+void pushDown(int Arr[], int root, int max_index){
+    int i = root;
+    while (2 * i + 1 <= max_index){
+        int tmp = 2 * i + 1;
+        if (2 * i + 2 <= max_index && Arr[tmp] < Arr[2 * i + 2])
+            tmp++;
+        if (Arr[tmp] > Arr[i]){
+            swap(Arr[tmp], Arr[i]);
+            i = tmp;
+        } else
+            i = max_index;
+    }
+}
+void heapSort(int Arr[], int n){
+    int par = (n - 2) / 2;
+    for (int i = par; i >=0; i--)
+        pushDown(Arr, i, n - 1);
+    for (int i = n - 1; i > 0; i--){
+        swap(Arr[0], Arr[i]);
+        pushDown(Arr, 0, i - 1);
+    }
+}
+void pushUp(int Arr[], int max_index){
+    int par = (max_index - 1) / 2;
+    for (int i = par; i >= 0; i--){
+        int tmp = 2 * i + 1;
+        int right_index = 2 * i + 2;
+        if (right_index <= max_index && Arr[tmp] < Arr[right_index])
+            tmp++;
+        if (Arr[tmp] > Arr[i])
+            swap(Arr[tmp], Arr[i]);
+    }
+}
+void heapSort_pushup(int Arr[], int n){
+    for (int i = n - 1; i > 0; i--){
+        pushUp(Arr, i);
+        swap(Arr[0], Arr[i]);
+    }
+}
 int main(){
     // int A[] = {10, 7, 8, 9, 1, 5};
     int A[] = {1, 3, 7, 9, 2, 6};
     int n = sizeof(A) / sizeof(A[0]); 
-    meger(A, 0, 3, 5);
+    heapSort_pushup(A, 6);
     for (int i = 0; i < n; i++)
         printf("%d  ", A[i]);
     
