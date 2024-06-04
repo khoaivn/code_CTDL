@@ -7,6 +7,7 @@ using namespace std;
 //     a = b;
 //     b = tmp;
 // }
+
 void seletionSort(int Arr[], int n){
     for (int i = 0; i < n - 1; i++){
         int min_index = i;
@@ -53,6 +54,13 @@ int lomutoPartition(int Arr[], int low, int high){
     swap(Arr[i + 1], Arr[high]);
     return i + 1;
 }
+void quickSort(int Arr[], int low, int high){
+    if (low < high){
+        int pi = lomutoPartition(Arr, low, high);
+        quickSort(Arr, low, pi - 1);
+        quickSort(Arr, pi + 1, high);
+    }
+}
 int hoarePartition(int Arr[], int low, int high){
     int pivot = Arr[low];
     int i = low - 1;
@@ -69,13 +77,6 @@ int hoarePartition(int Arr[], int low, int high){
         swap(Arr[i], Arr[j]);
     }
 }
-void quickSort(int Arr[], int low, int high){
-    if (low < high){
-        int pi = lomutoPartition(Arr, low, high);
-        quickSort(Arr, low, pi - 1);
-        quickSort(Arr, pi + 1, high);
-    }
-}
 int hoarePartition_vector(vector<int> &nums, int low, int high){
     int pivot = nums[low];
     int i = low - 1;
@@ -87,7 +88,6 @@ int hoarePartition_vector(vector<int> &nums, int low, int high){
         do{
             j--;
         } while (nums[j] > pivot);
-        printf("low= %d high=%d pivot=%d   %d  %d\n", low, high, pivot, i, j);
         if (i >= j)
             return j;
         swap(nums[i], nums[j]);
@@ -116,14 +116,41 @@ void quickSort_vector(vector<int> &nums, int low, int high){
         quickSort_vector(nums, pi + 1, high);
     }
 }
+void meger(int Arr[], int left, int mid, int right){
+    int C[right + 1];
+    int i = left;
+    int j = mid + 1;
+    int v = left;
+    while (i <= mid && j <= right){
+        if (Arr[i] < Arr[j]){
+            C[v] = Arr[i];
+            i++;
+        } else {
+            C[v] = Arr[j];
+            j++;
+        }
+        v++;
+    }
+    while (i <= mid){
+        C[v] = Arr[i];
+        i++;
+        v++;
+    }
+    while (j <= right){
+        C[v] = Arr[j];
+        j++;
+        v++;
+    }  
+    for (i = left; i <= right; i++)
+        Arr[i] = C[i];
+
+}
 int main(){
     // int A[] = {10, 7, 8, 9, 1, 5};
-    int A[] = {5, 1, 1, 2, 0, 0};
+    int A[] = {1, 3, 7, 9, 2, 6};
     int n = sizeof(A) / sizeof(A[0]); 
-    quickSort(A, 0, n - 1);
+    meger(A, 0, 3, 5);
     for (int i = 0; i < n; i++)
         printf("%d  ", A[i]);
-
-    
     
 }
