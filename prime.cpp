@@ -1,15 +1,11 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-#include <math.h>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 const int Max = 100;
 
 bool isPrime(int n) {
 	int u = (int)sqrt(n);
-    for (int i = 2; i <= u; i++)
+    for (int i = 2; i < u; i++)
         if (n % i == 0) {
             return false;
         }
@@ -79,7 +75,15 @@ void prime_doan(int L, int R) {
 }
 
 int main() {
-    cout << isPrime(4);
+    clock_t start, end; 
+    ios_base::sync_with_stdio(false); 
+    start = clock();
+    cout << isPrime((int)1e9 + 7) << endl;
+    end = clock();
+    double time_taken = double(end - start) / double(CLOCKS_PER_SEC); 
+    cout << "Time taken by program is : " << fixed << time_taken << setprecision(5); 
+    // cout << "Thoi gian chay:" << end - start;
+
 
     
     
