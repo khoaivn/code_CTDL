@@ -116,7 +116,7 @@ void deleteAtIndex(Node **head, int index){
             printf("index khong ton tai\n");
     }
 }
-Node* deleteAtIndex(Node *head, int index){
+Node* deleteAtIndex_01(Node *head, int index){
     if (head == NULL)
         printf("DS rong nen khong xoa duoc\n");
     else if (index == 1)
@@ -132,6 +132,21 @@ Node* deleteAtIndex(Node *head, int index){
             tmp->next = tmp->next->next;
         else 
             printf("index khong ton tai\n");
+    }
+    return head;
+}
+Node* deleteAfterNode(Node *head, int flag){
+    if (head == NULL)
+        printf("DS rong nen khong xoa duoc\n");
+    else {
+        Node *tmp = head;
+        while (tmp->next != NULL && tmp->data != flag){
+            tmp = tmp->next;
+        }
+        if (tmp->next != NULL)
+            tmp->next = tmp->next->next;
+        else 
+            printf("Khong xoa duoc\n");
     }
     return head;
 }
@@ -157,9 +172,11 @@ void printList(Node* head) {
 
 int main(){
     Node *head = NULL;
-    head = addAtHead_01(head, 10);
+    // head = addAtHead_01(head, 10);
     head = addAtTail_01(head, 1);
     head = addAtTail_01(head, 3);
+    // addAtAnywhere(head, 3, 9);
+    // head = deleteAfterNode(head, 9);
     // addAtTail(&head, 4);
     // addAtTail(&head, 5);
     // addAtTail(&head, 8);
