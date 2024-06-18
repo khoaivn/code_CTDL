@@ -67,7 +67,7 @@ Node* addBeforeNode(Node *head, int data_flag, int val){
         tmp->prev = newNode;
         newNode->prev->next = newNode;
     } else 
-        printf("Khong thay\n");
+        printf("Not found\n");
     return head;
 }
 Node* deleteAtHead(Node *head){
@@ -81,6 +81,59 @@ Node* deleteAtHead(Node *head){
     }
     return head;
 }
+
+Node* deleteAtTail(Node *head){
+    if (head == NULL)
+        printf("List is empty!\n");
+    else if (head->next == NULL)
+        head = NULL;
+    else {
+        Node *tmp = head;
+        while (tmp->next->next != NULL)
+            tmp = tmp->next;
+        tmp->next->prev = NULL;
+        tmp->next = NULL;
+    }
+    return head;
+}
+Node* deleteAfterNode(Node *head, int flag){
+    if (head == NULL)
+        printf("List is empty!\n");
+    else {
+        Node *tmp = head;
+        while (tmp->next != NULL && tmp->data != flag){
+            tmp = tmp->next;
+        }
+        if (tmp->next == NULL)
+            printf("Not found!\n");
+        else if (tmp->next->next == NULL)
+            head = deleteAtTail(head);
+        else {
+            tmp->next = tmp->next->next;
+            tmp->next->prev = tmp->next->prev->prev;
+        } 
+    }
+    return head;
+}
+Node* deleteBeforeNode(Node *head, int flag){
+    if (head == NULL)
+        printf("List is empty!\n");
+    else {
+        Node *tmp = head;
+        while (tmp->next != NULL && tmp->data != flag){
+            tmp = tmp->next;
+        }
+        if (tmp->next == NULL)
+            printf("Not found!\n");
+        else if (head->next->data == flag)
+            head = deleteAtHead(head);
+        else {
+            tmp->prev = tmp->prev->prev;
+            tmp->prev->next = tmp->prev->next->next;
+        } 
+    }
+    return head;
+}
 void printList(Node* head) {
     Node *temp = head;
     while (temp != NULL) {
@@ -91,10 +144,16 @@ void printList(Node* head) {
 }
 int main(){
     Node *head = NULL;
-    head = addAtHead(head, 3);
+    head = addAtTail(head, 20);
+    head = addAtTail(head, 5);
+    head = addAtTail(head, 16);
+    // head = addAtTail(head, 12);
+    // head = addAtTail(head, 4);
+    // head = addAtTail(head, 6);
+    // head = addAtTail(head, 13);
     // head = addAtHead(head, 5);
     // addAfterNode(head, 5, 8);
     // head = addBeforeNode(head, 3, 10);
-    head = deleteAtHead(head);
+    head = deleteBeforeNode(head, 20);
     printList(head);
 }
