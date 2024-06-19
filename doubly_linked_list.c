@@ -110,7 +110,7 @@ Node* deleteAfterNode(Node *head, int flag){
             head = deleteAtTail(head);
         else {
             tmp->next = tmp->next->next;
-            tmp->next->prev = tmp->next->prev->prev;
+            tmp->next->prev = tmp;
         } 
     }
     return head;
@@ -123,13 +123,13 @@ Node* deleteBeforeNode(Node *head, int flag){
         while (tmp->next != NULL && tmp->data != flag){
             tmp = tmp->next;
         }
-        if (tmp->next == NULL)
+        if (tmp->next == NULL && tmp->data != flag || head->data == flag)
             printf("Not found!\n");
         else if (head->next->data == flag)
             head = deleteAtHead(head);
         else {
             tmp->prev = tmp->prev->prev;
-            tmp->prev->next = tmp->prev->next->next;
+            tmp->prev->next = tmp;
         } 
     }
     return head;
@@ -147,13 +147,13 @@ int main(){
     head = addAtTail(head, 20);
     head = addAtTail(head, 5);
     head = addAtTail(head, 16);
-    // head = addAtTail(head, 12);
+    head = addAtTail(head, 12);
     // head = addAtTail(head, 4);
     // head = addAtTail(head, 6);
     // head = addAtTail(head, 13);
     // head = addAtHead(head, 5);
     // addAfterNode(head, 5, 8);
     // head = addBeforeNode(head, 3, 10);
-    head = deleteBeforeNode(head, 20);
+    head = deleteBeforeNode(head, 16);
     printList(head);
 }
