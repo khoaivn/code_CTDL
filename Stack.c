@@ -4,7 +4,7 @@ void createStack(int *top){
     *top = -1;
 }
 void pushStack(int m, int Arr[], int *top){
-    if (*top < 99){
+    if (*top < max - 1){
         (*top)++;
         Arr[*top] = m;
     } else 
@@ -16,7 +16,7 @@ void printStack(int Arr[], int top){
     printf("\n");
 }
 
-int pullStack(int Arr[], int *top){
+int popStack(int Arr[], int *top){
     if (*top == -1){
         printf("Stack rong!");
         return -1;
@@ -30,11 +30,11 @@ int main(){
     int A[max];
     int top;
     createStack(&top);
-    // pushStack(3, A, &top);
-    // pushStack(1, A, &top);
+    pushStack(3, A, &top);
+    pushStack(1, A, &top);
     // pushStack(6, A, &top);
     // printStack(A, top);
-    printf("%d\n", pullStack(A, &top));
+    // printf("%d\n", pullStack(A, &top));
     printStack(A, top);
     return 0;
 }

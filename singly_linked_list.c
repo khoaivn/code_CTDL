@@ -66,6 +66,16 @@ void deleteAtHead(Node **head){
     else
         printf("DS rong nen khong xoa duoc\n");
 }
+int pop(Node **head){
+    if(*head != NULL){
+        int tmp = (*head)->data;
+        *head = (*head)->next;
+        return tmp;
+    } else {
+        printf("List is empty!\n");
+        return -1;
+    }
+}
 Node* deleteAtHead_01(Node *head){
     if(head != NULL)
         head = head->next;
@@ -175,6 +185,8 @@ int main(){
     // head = addAtHead_01(head, 10);
     head = addAtTail_01(head, 1);
     head = addAtTail_01(head, 3);
+    head = addAtTail_01(head, 8);
+    head = addAtTail_01(head, 2);
     // addAtAnywhere(head, 3, 9);
     // head = deleteAfterNode(head, 9);
     // addAtTail(&head, 4);
@@ -183,7 +195,11 @@ int main(){
     // addAtTail(&head, 9);
     // addAtAnywhere(head, 8, 3);
     // addAtAnywhere(head, 9, 12);
-    
+    printf("%d\n", pop(&head));
+    printf("%d\n", pop(&head));
+    printf("%d\n", pop(&head));
+    printf("%d\n", pop(&head));
+    printf("%d\n", pop(&head));
     printList(head);
 
     return 0;
