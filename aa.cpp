@@ -9,6 +9,7 @@ int main(){
     int *p;
     p = &n;
     n = 8;
+    scanf("%d",&n);
     printf("%d\n", p);
     printf("%d\n", *p);
 }
