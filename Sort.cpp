@@ -17,6 +17,12 @@ void seletionSort(int Arr[], int n){
         swap(Arr[i], Arr[min_index]);
     }
 }
+void sort(int Arr[], int n){
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (Arr[i] > Arr[j])
+                swap(Arr[i], Arr[j]);
+}
 void insertionSort(int Arr[], int n){
     for (int i = 1; i < n; i++){
         int tmp = Arr[i];
@@ -196,7 +202,7 @@ int main(){
     // int A[] = {10, 7, 8, 9, 1, 5};
     int A[] = {1, 3, 7, 9, 2, 6};
     int n = sizeof(A) / sizeof(A[0]); 
-    heapSort_pushup(A, 6);
+    sort(A, 6);
     for (int i = 0; i < n; i++)
         printf("%d  ", A[i]);
     
